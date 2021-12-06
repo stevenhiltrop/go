@@ -6,7 +6,7 @@ import (
 )
 
 func main() {
-	n, err := fmt.Printf("Hello, World!")
+	n, err := fmt.Printf("Hello, World!\n")
 
 	switch {
 	case err != nil:
