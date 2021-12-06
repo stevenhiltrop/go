@@ -2,10 +2,13 @@ package main
 
 import (
 	"fmt"
+	"os"
 )
 
 func main() {
-	message := "Hello, World!\n"
-
-	fmt.Printf(message)
+	if numberBytes, theError := fmt.Printf("Hello, World!\n"); theError != nil {
+		os.Exit(1)
+	} else {
+		fmt.Printf("Printed %d bytes\n", numberBytes)
+	}
 }
