@@ -3,7 +3,7 @@ package main
 import "fmt"
 
 func main() {
-	for counter := 0; counter < 10; counter++ {
+	for i := 0; i < 10; i++ {
 		fmt.Printf("Hello, World!\n")
 	}
 
