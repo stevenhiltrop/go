@@ -7,5 +7,7 @@ import (
 func main() {
 	atoz := "the quick brown fox jumps over the lazy dog\n"
 
-	fmt.Printf("%s'n", atoz[:9])
+	for _, r := range atoz {
+		fmt.Printf("%c\n", r)
+	}
 }
