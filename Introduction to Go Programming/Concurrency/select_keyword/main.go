@@ -1,11 +1,17 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"time"
+)
 
 func emit(wordChannel chan string, done chan bool) {
+	defer close(wordChannel)
+
 	words := []string{"The", "quick", "brown", "fox"}
 
 	i := 0
+	t := time.NewTimer(3 * time.Second)
 
 	for {
 		select {
@@ -15,7 +21,9 @@ func emit(wordChannel chan string, done chan bool) {
 				i = 0
 			}
 		case <-done:
-			close(done)
+			done <- true
+			return
+		case <-t.C:
 			return
 		}
 	}
@@ -27,7 +35,7 @@ func main() {
 
 	go emit(wordChan, doneChan)
 
-	for i := 0; i < 100; i++ {
-		fmt.Printf("%s ", <-wordChan)
+	for words := range wordChan {
+		fmt.Printf("%s ", words)
 	}
 }
