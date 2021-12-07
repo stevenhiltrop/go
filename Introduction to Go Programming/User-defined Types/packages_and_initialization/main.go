@@ -5,7 +5,7 @@ import (
 	"shuffler"
 )
 
-type stringSlice []string
+type stringSlice []weightString
 type weightString struct {
 	weight int
 	s      string
