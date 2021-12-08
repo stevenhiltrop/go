@@ -5,7 +5,7 @@ type Stanza []Line
 type Poem []Stanza
 
 func NewPoem() Poem {
-	return nil
+	return Poem{}
 }
 
 func (p Poem) Stats() (numVowels, numConsonants int) {
