@@ -15,4 +15,5 @@ func main() {
 		"Voyagin through strange seas of Thought, alone."}}
 	v, c := p.Stats()
 	fmt.Printf("Vowels: %d, Consonants: %d\n", v, c)
+	fmt.Printf("Stanzas: %, Lines: %d\n", p.NumStanzas(), p.NumLines())
 }

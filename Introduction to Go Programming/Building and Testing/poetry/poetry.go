@@ -20,6 +20,7 @@ func (p Poem) NumLines(count int) {
 	for _, s := range p {
 		count += s.NumLines()
 	}
+	return
 }
 
 func (p Poem) Stats() (numVowels, numConsonants int) {
