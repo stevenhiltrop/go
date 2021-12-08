@@ -23,13 +23,15 @@ func (p Poem) NumLines() (count int) {
 	return
 }
 
-func (p Poem) Stats() (numVowels, numConsonants int) {
+func (p Poem) Stats() (numVowels, numConsonants, numPuncs int) {
 	for _, s := range p {
 		for _, l := range s {
 			for _, r := range l {
 				switch r {
 				case 'a', 'e', 'i', 'o', 'u':
 					numVowels += 1
+				case ',', ' ', '!':
+					numPuncs += 1
 				default:
 					numConsonants += 1
 				}

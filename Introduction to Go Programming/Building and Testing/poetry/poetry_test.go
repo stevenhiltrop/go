@@ -42,20 +42,20 @@ func TestNumLines(t *testing.T) {
 
 func TestStats(t *testing.T) {
 	p := Poem{}
-	v, c := p.Stats()
-	if v != 0 || c != 0 {
-		t.Fatalf("Bad number of vowels or consonants")
+	v, c, puncs := p.Stats()
+	if v != 0 || c != 0 || puncs != 0 {
+		t.Fatalf("Bad number of vowels, consonants or punctuation maks")
 	}
 
 	p := Poem{{"Hello"}}
-	v, c := p.Stats()
-	if v != 2 || c != 3 {
-		t.Fatalf("Bad number of vowels or consonants")
+	v, c, puncs := p.Stats()
+	if v != 2 || c != 3 || puncs != 0 {
+		t.Fatalf("Bad number of vowels, consonants or punctuation maks")
 	}
 
 	p := Poem{{"Hello, World!"}}
-	v, c := p.Stats()
-	if v != 3 || c != 7 {
-		t.Fatalf("Bad number of vowels or consonants (%d %d)", v, c)
+	v, c, puncs := p.Stats()
+	if v != 3 || c != 7 || puncs != 3 {
+		t.Fatalf("Bad number of vowels, consonants or punctuation maks (%d %d %d)", v, c, puncs)
 	}
 }
