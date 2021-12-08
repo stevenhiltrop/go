@@ -8,6 +8,20 @@ func NewPoem() Poem {
 	return Poem{}
 }
 
+func (p Poem) NumStanzas() int {
+	return len(p)
+}
+
+func (s Stanza) NumLines() int {
+	return len(s)
+}
+
+func (p Poem) NumLines(count int) {
+	for _, s := range p {
+		count += s.NumLines()
+	}
+}
+
 func (p Poem) Stats() (numVowels, numConsonants int) {
 	for _, s := range p {
 		for _, l := range s {
