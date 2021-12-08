@@ -35,7 +35,27 @@ func TestNumLines(t *testing.T) {
 		"The marble index of a mind for ever",
 		"Voyagin through strange seas of Thought, alone."}}
 
-	if p.NumLines() != 1 {
-		t.Fatalf("Unexpected stanza count %d", p.NumLines())
+	if p.NumLines() != 6 {
+		t.Fatalf("Unexpected line count %d", p.NumLines())
+	}
+}
+
+func TestStats(t *testing.T) {
+	p := Poem{}
+	v, c := p.Stats()
+	if v != 0 || c != 0 {
+		t.Fatalf("Bad number of vowels or consonants")
+	}
+
+	p := Poem{{"Hello"}}
+	v, c := p.Stats()
+	if v != 2 || c != 3 {
+		t.Fatalf("Bad number of vowels or consonants")
+	}
+
+	p := Poem{{"Hello, World!"}}
+	v, c := p.Stats()
+	if v != 3 || c != 7 {
+		t.Fatalf("Bad number of vowels or consonants (%d %d)", v, c)
 	}
 }
