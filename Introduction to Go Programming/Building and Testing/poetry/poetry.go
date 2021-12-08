@@ -16,7 +16,7 @@ func (s Stanza) NumLines() int {
 	return len(s)
 }
 
-func (p Poem) NumLines(count int) {
+func (p Poem) NumLines() (count int) {
 	for _, s := range p {
 		count += s.NumLines()
 	}
