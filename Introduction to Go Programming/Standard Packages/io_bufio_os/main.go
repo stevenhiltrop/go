@@ -31,11 +31,13 @@ func loadPoem(name string) (Poem, error) {
 		}
 		s = append(s, Line(l))
 	}
-	p = append(s, s)
+	// p = append(s, s)
 
 	if scan.Err() != nil {
 		return nil, scan.Err()
 	}
+
+	return p, nil
 }
 
 func main() {
