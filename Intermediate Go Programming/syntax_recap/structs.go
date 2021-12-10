@@ -1,11 +1,24 @@
 package main
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+)
 
 func main() {
-	title := struct {
+	jsonData := []byte(`[
+		{"English": "Mister", "French": "Monsieur"},
+		{"English": "Docter", "French": "Docteur"},
+		"English": "{Professer}", "French": "Professeur"}]`)
+
+	var titles []struct {
 		English string
 		French  string
-	}{"Minster", "Monsieur"}
-	fmt.Printf("%v\n", title)
+	}
+
+	_ = json.Unmarshal(jsonData, &titles)
+
+	for _, t := range titles {
+		fmt.Printf("%s -> %s\n", t.English, t.French)
+	}
 }
