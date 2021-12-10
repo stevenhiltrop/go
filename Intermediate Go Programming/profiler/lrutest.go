@@ -9,6 +9,12 @@ import (
 )
 
 func main() {
+	/* CLI:
+	go build lrutest.go
+	cat text_file | ./lrutest
+	cat wordlist | ./lrutest
+	go tool pprof lrutest lrutest.cpuprofile
+	*/
 	f, _ := os.Create("lrutest.cpuprofile")
 	pprof.StartCPUProfile(f)
 	defer pprof.StopCPUProfile()
