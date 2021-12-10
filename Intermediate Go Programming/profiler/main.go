@@ -30,3 +30,19 @@ func (c *Cache) makeSpace() {
 
 	delete(c.data, key)
 }
+
+func (c *Cache) Put(key, value string) {
+	if len(c.data == c.cap) {
+		c.makeSpace()
+	}
+
+	c.data[key] = &Item{value: value, last: time.Now()}
+}
+
+func (c *Cache) Get(key string) *Item {
+	if c.data[key] != nil {
+		c.data[key].last = time.Now()
+		return c.data[key]
+	}
+	return nil
+}
