@@ -19,6 +19,4 @@ func main() {
 	Printf("Hello, World! %s")
 
 	return
-
-	fmt.Println("Exit time")
 }
