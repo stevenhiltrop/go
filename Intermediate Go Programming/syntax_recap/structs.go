@@ -9,7 +9,7 @@ func main() {
 	jsonData := []byte(`[
 		{"English": "Mister", "French": "Monsieur"},
 		{"English": "Docter", "French": "Docteur"},
-		"English": "{Professer}", "French": "Professeur"}]`)
+		{"English": "Professer", "French": "Professeur"}]`)
 
 	var titles []struct {
 		English string
