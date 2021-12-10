@@ -14,6 +14,7 @@ func length(s string) int {
 }
 
 func main() {
+	// go run -gcflags="-m" main.go
 	s := "Hello, World!"
 	s += s
 	s += s
