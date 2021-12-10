@@ -17,5 +17,5 @@ func main() {
 	change("Be quiet")
 	fmt.Println(ls2.String())
 
-	fmt.Printf("%s\n", ls2.String())
+	fmt.Printf(ls2.String())
 }
