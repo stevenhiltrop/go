@@ -64,7 +64,12 @@ func NewDoubler(ctx *Context, in <-chan int) *Doubler {
 
 		for {
 			select {
-			case d.out <- <-d.in * 2:
+			case i := <-d.in:
+				select {
+				case d.out <- i * 2:
+				case <-done:
+					fmt.Printf("Doubler terminated\n")
+				}
 			case <-done:
 				fmt.Printf("Doubler terminated\n")
 				return
