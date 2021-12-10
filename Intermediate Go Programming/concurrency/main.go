@@ -69,6 +69,7 @@ func NewDoubler(ctx *Context, in <-chan int) *Doubler {
 				case d.out <- i * 2:
 				case <-done:
 					fmt.Printf("Doubler terminated\n")
+					return
 				}
 			case <-done:
 				fmt.Printf("Doubler terminated\n")
