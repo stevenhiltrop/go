@@ -1,6 +1,9 @@
 package lru1
 
-import "time"
+import (
+	"container/list"
+	"time"
+)
 
 type Item struct {
 	key   string
@@ -10,37 +13,26 @@ type Item struct {
 
 type Cache struct {
 	cap  int
-	data map[string]*Item
+	data map[string]*list.Element
+	l    *list.List
 }
 
 func NewCache(cap int) *Cache {
-	return &Cache{cap, make(map[string]*Item)}
-}
-
-func (c *Cache) makeSpace() {
-	old := &Item{last: time.Now()}
-	var key string
-
-	for k, v := range c.data {
-		if v.last.Before(old.last) {
-			old = v
-			key = k
-		}
-	}
-	delete(c.data, key)
+	return &Cache{cap, make(map[string]*list.Element), list.New()}
 }
 
 func (c *Cache) Put(key, value string) {
 	if len(c.data) == c.cap {
-		c.makeSpace()
+		delete(c.data, c.l.Back().Value.(*Item).key)
+		c.l.Remove(c.l.Back())
 	}
-	c.data[key] = &Item{value: value, last: time.Now()}
+	c.data[key] = c.l.PushFront(&Item{key: key, value: value})
 }
 
 func (c *Cache) Get(key string) *Item {
 	if c.data[key] != nil {
-		c.data[key].last = time.Now()
-		return c.data[key]
+		c.l.MoveToFront(c.data[key])
+		return c.data[key].Value.(*Item)
 	}
 	return nil
 }
