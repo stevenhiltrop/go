@@ -31,7 +31,7 @@ func (c *Cache) makeSpace() {
 }
 
 func (c *Cache) Put(key, value string) {
-	if len(c.data == c.cap) {
+	if len(c.data) == c.cap {
 		c.makeSpace()
 	}
 	c.data[key] = &Item{value: value, last: time.Now()}
