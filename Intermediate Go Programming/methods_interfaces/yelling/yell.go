@@ -2,6 +2,13 @@ package yelling
 
 import "strings"
 
+type Yeller interface {
+	String() string
+	Change(s string)
+	Blank()
+	Len() int
+}
+
 type LoudString struct {
 	s string
 }
