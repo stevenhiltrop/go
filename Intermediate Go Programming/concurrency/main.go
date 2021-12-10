@@ -12,9 +12,9 @@ type Context struct {
 }
 
 type Counter struct {
-	c    chan int
-	done chan struct{}
-	i    int
+	ctx *Context
+	c   chan int
+	i   int
 }
 
 func NewContext() *Context {
@@ -23,17 +23,22 @@ func NewContext() *Context {
 	return ctx
 }
 
-func NewCounter() *Counter {
+func NewCounter(ctx *Context) *Counter {
 	counter := new(Counter)
 	counter.c = make(chan int)
-	counter.done = make(chan struct{})
+	counter.ctx = ctx
 
+	wg.Add(1)
 	go func() {
+		defer wg.Done()
+		done := counter.ctx.GetDone()
+
 		for {
 			select {
 			case counter.c <- counter.i:
 				counter.i += 1
-			case <-counter.done:
+			case <-done:
+				fmt.Printf("Counter terminated\n")
 				return
 			}
 		}
@@ -54,18 +59,14 @@ func (c *Context) Stop() {
 	close(c.done)
 }
 
-func (c *Counter) Stop() {
-	c.done <- struct{}{}
-}
-
 func main() {
-	c := NewCounter()
+	ctx := NewContext()
+	c := NewCounter(ctx)
 	read := c.GetSource()
 
 	fmt.Printf("%d\n", <-read)
 	fmt.Printf("%d\n", <-read)
 	fmt.Printf("%d\n", <-read)
-	c.Stop()
-
-	fmt.Printf("%d\n", <-read)
+	ctx.Stop()
+	wg.Wait()
 }
