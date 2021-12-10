@@ -5,10 +5,17 @@ import (
 	"fmt"
 )
 
+var (
+	ErrBadStartup = errors.New("Failed to start correctly")
+)
+
 func main() {
 	var err error
+	err = ErrBadStartup
 
-	err = errors.New("Fatal exception")
-
+	if err == ErrBadStartup {
+		//IGNORE
+		return
+	}
 	fmt.Printf("Error: %s\n", err)
 }
