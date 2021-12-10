@@ -1,9 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type MyString struct {
 	str string
+}
+
+type Shouting struct {
+	MyString
 }
 
 func NewMyString(s string) MyString {
@@ -14,7 +21,18 @@ func (m MyString) Output() {
 	fmt.Println(m.str)
 }
 
+func NewShoutingString(s string) Shouting {
+	load := Shouting{}
+	load.str = strings.ToUpper(s)
+	return load
+}
+
+// Overriding the parent Output
+func (m Shouting) Output() {
+	fmt.Printf("Really loud: %s\n", m.str)
+}
+
 func main() {
-	hello := NewMyString("Hello, World!")
+	hello := NewShoutingString("Hello, World!")
 	hello.Output()
 }
