@@ -29,5 +29,5 @@ IgnoreNegative:
 		total += 1
 	}
 
-	fmt.Printf("Even %d, odd %d, zeroes %d, total %d", even, odd, zeroes, total)
+	fmt.Printf("Even %d, odd %d, zeroes %d, total %d/%d\n", even, odd, zeroes, total, len(numbers))
 }
