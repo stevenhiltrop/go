@@ -14,6 +14,8 @@ func main() {
 	cat text_file | ./lrutest
 	cat wordlist | ./lrutest
 	go tool pprof lrutest lrutest.cpuprofile
+	(pprof) list
+	(pprof) web
 	*/
 	f, _ := os.Create("lrutest.cpuprofile")
 	pprof.StartCPUProfile(f)
