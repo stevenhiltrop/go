@@ -17,6 +17,11 @@ type Counter struct {
 	i   int
 }
 
+type Doubler struct {
+	in  <-chan int
+	out chan int
+}
+
 func NewContext() *Context {
 	ctx := new(Context)
 	ctx.done = make(chan struct{})
@@ -47,12 +52,38 @@ func NewCounter(ctx *Context) *Counter {
 	return counter
 }
 
+func NewDoubler(ctx *Context, in <-chan int) *Doubler {
+	d := new(Doubler)
+	d.in = in
+	d.out = make(chan int)
+
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		done := ctx.GetDone()
+
+		for {
+			select {
+			case d.out <- <-d.in * 2:
+			case <-done:
+				fmt.Printf("Doubler terminated\n")
+				return
+			}
+		}
+	}()
+	return d
+}
+
 func (c *Context) GetDone() <-chan struct{} {
 	return c.done
 }
 
 func (c *Counter) GetSource() <-chan int {
 	return c.c
+}
+
+func (d *Doubler) GetSource() <-chan int {
+	return d.out
 }
 
 func (c *Context) Stop() {
@@ -62,7 +93,9 @@ func (c *Context) Stop() {
 func main() {
 	ctx := NewContext()
 	c := NewCounter(ctx)
-	read := c.GetSource()
+	connect := c.GetSource()
+	d := NewDoubler(ctx, connect)
+	read := d.GetSource()
 
 	fmt.Printf("%d\n", <-read)
 	fmt.Printf("%d\n", <-read)
