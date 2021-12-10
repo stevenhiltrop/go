@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"fmt"
 	"log"
 	"os"
 	"shouter"
@@ -16,5 +17,6 @@ func main() {
 		log.Fatalf("Failed to open %s", *filename)
 		return
 	}
-	shouter.ReadAndShout(file)
+	s, _ := shouter.ReadAndShout(file)
+	fmt.Println(s)
 }

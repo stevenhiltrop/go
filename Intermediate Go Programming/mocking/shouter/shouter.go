@@ -2,7 +2,6 @@ package shouter
 
 import (
 	"bufio"
-	"fmt"
 	"io"
 	"strings"
 )
@@ -15,12 +14,13 @@ func ShoutReallyLoud(s string) string {
 	return Shout(s) + "!"
 }
 
-func ReadAndShout(r io.Reader) error {
+func ReadAndShout(r io.Reader) (string, error) {
+	gather := ""
 	scannner := bufio.NewScanner(r)
 
 	for scannner.Scan() {
-		fmt.Println(Shout(scannner.Text()))
+		gather += Shout(scannner.Text()) + "\n"
 	}
 
-	return scannner.Err()
+	return gather, scannner.Err()
 }
