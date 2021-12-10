@@ -14,6 +14,8 @@ func save(sizes []int, n int) []int {
 
 func main() {
 	// CLI: go tool pprof pprof profile
+	// (pprof) web
+	// (pprof) top
 	s := "Hello, World!"
 	var sizes []int
 	first := true
