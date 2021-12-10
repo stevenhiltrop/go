@@ -3,9 +3,11 @@ package main
 import (
 	"fmt"
 	"strings"
+	"sync"
 )
 
 type MyString struct {
+	sync.Mutex
 	str string
 }
 
@@ -34,5 +36,7 @@ func (m Shouting) Output() {
 
 func main() {
 	hello := NewShoutingString("Hello, World!")
+	hello.Lock()
 	hello.Output()
+	hello.Unlock()
 }
