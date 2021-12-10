@@ -14,7 +14,7 @@ func (ls *LoudString) String() string {
 	return ls.s
 }
 
-func (ls LoudString) Change(s string) {
+func (ls *LoudString) Change(s string) {
 	ls.s = strings.ToUpper(s)
 }
 
