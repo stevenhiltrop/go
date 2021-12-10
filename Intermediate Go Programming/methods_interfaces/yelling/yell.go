@@ -28,3 +28,7 @@ func (ls *LoudString) Change(s string) {
 func (ls *LoudString) Blank() {
 	ls.s = ""
 }
+
+func (ls *LoudString) Len() int {
+	return len(ls.s)
+}

@@ -16,4 +16,6 @@ func main() {
 	change := ls2.Change
 	change("Be quiet")
 	fmt.Println(ls2.String())
+
+	var _ yelling.Yeller = ls
 }
