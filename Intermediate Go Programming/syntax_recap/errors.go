@@ -1,21 +1,23 @@
 package main
 
 import (
-	"errors"
 	"fmt"
+	"time"
 )
 
-var (
-	ErrBadStartup = errors.New("Failed to start correctly")
-)
+type MyError struct {
+	str  string
+	when time.Time
+}
+
+func (m MyError) Error() string {
+	return fmt.Sprintf("%s at %s", m.str, m.when)
+}
 
 func main() {
-	var err error
-	err = ErrBadStartup
+	err := MyError{}
+	err.str = "Bad thing"
+	err.when = time.Now()
 
-	if err == ErrBadStartup {
-		//IGNORE
-		return
-	}
-	fmt.Printf("Error: %s\n", err)
+	fmt.Printf("%s\n", err)
 }
