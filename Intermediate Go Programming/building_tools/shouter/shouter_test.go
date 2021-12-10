@@ -11,6 +11,6 @@ func TestShout(t *testing.T) {
 
 	shoutedString := Shout(testString)
 	if noLower.MatchString(shoutedString) {
-		t.Fatalf("Found uppercase")
+		t.Fatalf("Found lowercase")
 	}
 }
