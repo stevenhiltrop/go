@@ -89,7 +89,11 @@ func (ds *databaseServer) api(w http.ResponseWriter, req *http.Request) {
 }
 
 func main() {
-	// CLI: curl -s http://127.0.0.1:8080/api\?last=Lovelace | json_pp
+	/* CLI:
+
+	GET: curl -s http://127.0.0.1:8080/api\?last=Lovelace | json_pp
+	POST: curl -s -X POST http://127.0.0.1:8080/api\?last=Sommerville\&first=Mary | json_pp
+	*/
 	ds := &databaseServer{}
 	var err error
 	ds.db, err = sql.Open("sqlite3", "./scientists.db")
