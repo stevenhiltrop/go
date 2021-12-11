@@ -42,5 +42,6 @@
 # Support for Project snippet scope
 !.vscode/*.code-snippets
 
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode,go
+# Custom
 testfile.txt
+.DS_STORE
