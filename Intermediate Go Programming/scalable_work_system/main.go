@@ -94,6 +94,7 @@ func (f *Factory) create(line string) task {
 }
 
 func main() {
+	// echo "https://www.cloudflare.com | ./scalable_work_system"
 	f := &Factory{}
 	run(f)
 }
