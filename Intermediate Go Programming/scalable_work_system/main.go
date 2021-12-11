@@ -2,7 +2,9 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"log"
+	"net/http"
 	"os"
 	"sync"
 )
@@ -59,4 +61,39 @@ func run(f factory) {
 	}
 }
 
-func main() {}
+type HTTPTask struct {
+	url string
+	ok  bool
+}
+
+func (h *HTTPTask) process() {
+	resp, err := http.Get(h.url)
+	if err != nil {
+		h.ok = false
+		return
+	}
+
+	if resp.StatusCode == http.StatusOK {
+		h.ok = true
+		return
+	}
+	h.ok = false
+}
+
+func (h *HTTPTask) output() {
+	fmt.Printf("%s %t\n", h.url, h.ok)
+}
+
+type Factory struct {
+}
+
+func (f *Factory) create(line string) task {
+	h := &HTTPTask{}
+	h.url = line
+	return h
+}
+
+func main() {
+	f := &Factory{}
+	run(f)
+}
