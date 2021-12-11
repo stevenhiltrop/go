@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"os"
 	"sync"
+	"time"
 )
 
 var n int
@@ -65,8 +66,10 @@ func run(f factory) {
 }
 
 type HTTPTask struct {
-	url string
-	ok  bool
+	url     string
+	ok      bool
+	elapsed time.Duration
+	start   time.Duration
 }
 
 func (h *HTTPTask) process() {
@@ -88,7 +91,7 @@ func (h *HTTPTask) process() {
 }
 
 func (h *HTTPTask) output() {
-	fmt.Printf("%s %t\n", h.url, h.ok)
+	fmt.Printf("%s %s %t %s\n", h.start, h.url, h.ok, h.elapsed)
 }
 
 type Factory struct{}
