@@ -2,6 +2,7 @@ package main
 
 import (
 	"database/sql"
+	"fmt"
 	"log"
 	//_ "https://github.com/mattn/go-sqlite3"
 )
@@ -27,5 +28,7 @@ func main() {
 		if err != nil {
 			log.Fatalf("Database error:  %s", err)
 		}
+
+		fmt.Printf("%s %s\n", first, last)
 	}
 }
