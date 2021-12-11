@@ -67,6 +67,10 @@ type HTTPTask struct {
 }
 
 func (h *HTTPTask) process() {
+	if h.url == "" {
+		h.ok = false
+		return
+	}
 	resp, err := http.Get(h.url)
 	if err != nil {
 		h.ok = false
@@ -84,8 +88,7 @@ func (h *HTTPTask) output() {
 	fmt.Printf("%s %t\n", h.url, h.ok)
 }
 
-type Factory struct {
-}
+type Factory struct{}
 
 func (f *Factory) create(line string) task {
 	h := &HTTPTask{}
