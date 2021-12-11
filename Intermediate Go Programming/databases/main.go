@@ -7,8 +7,8 @@ import (
 	//_ "https://github.com/mattn/go-sqlite3"
 )
 
-func show(d *sql.DB) {
-	rows, err := d.Query("SELECT * FROM names")
+func show(db *sql.DB) {
+	rows, err := db.Query("SELECT * FROM names")
 	if err != nil {
 		log.Fatalf("Database error:  %s", err)
 	}
@@ -34,6 +34,27 @@ func main() {
 		log.Fatalf("Database error:  %s", err)
 	}
 	defer db.Close()
+
+	show(db)
+
+	t, err := db.Begin()
+	if err != nil {
+		log.Fatalf("Database error:  %s", err)
+	}
+
+	st, err := t.Prepare("UPDATE names SET alive = 0;")
+	if err != nil {
+		log.Fatalf("Database error:  %s", err)
+	}
+
+	_, err = st.Exec()
+	if err != nil {
+		log.Fatalf("Database error:  %s", err)
+	}
+
+	show(db)
+
+	t.Commit()
 
 	show(db)
 }
