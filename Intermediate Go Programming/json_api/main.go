@@ -18,7 +18,7 @@ func (ds *databaseServer) api(w http.ResponseWriter, req *http.Request) {
 		return
 	}
 	last := req.Form["last"][0]
-	rows, err := ds.db.Query("SELECT first FROM names WHERE last = ?;", last)
+	rows, err := ds.db.Query("SELECT * FROM names WHERE last = ?;", last)
 	if err != nil {
 		http.Error(w, fmt.Sprintf("Error %s", err), http.StatusBadRequest)
 		return
