@@ -2,12 +2,15 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"log"
 	"net/http"
 	"os"
 	"sync"
 )
+
+var n int
 
 type task interface {
 	process()
@@ -40,7 +43,7 @@ func run(f factory) {
 
 	out := make(chan task)
 
-	for i := 0; i < 1000; i++ {
+	for i := 0; i < n; i++ {
 		wg.Add(1)
 		go func() {
 			for t := range in {
@@ -99,6 +102,9 @@ func (f *Factory) create(line string) task {
 func main() {
 	// echo "https://www.cloudflare.com | ./scalable_work_system"
 	// ./scalable_work_system < urls.txt
+	count := flag.Int("count", 10, "Number of workers")
+	flag.Parse()
+	n = *count
 	f := &Factory{}
 	run(f)
 }
