@@ -1,0 +1,2 @@
+Mainting external packages are done through vendoring
+    https://pkg.go.dev/cmd/go#hdr-Vendor_Directories
