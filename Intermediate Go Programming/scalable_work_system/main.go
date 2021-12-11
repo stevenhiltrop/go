@@ -12,6 +12,7 @@ import (
 )
 
 var n int
+var begin time.Time
 
 type task interface {
 	process()
@@ -26,6 +27,8 @@ func run(f factory) {
 	var wg sync.WaitGroup
 
 	in := make(chan task)
+
+	begin = time.Now()
 
 	wg.Add(1)
 	go func() {
